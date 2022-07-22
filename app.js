@@ -4,20 +4,37 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 800;
 
-// 사격형을 채우는 함수 단축어
-// ctx.fillRect(50, 50, 100, 200);
+const colors = [
+    "#ff3838",
+    "#ffb8b8",
+    "#c56cf0",
+    "#ff9f1a",
+    "#fff200",
+    "#32ff7e",
+    "#7efff5",
+    ]
 
-// 
-// ctx.rect(50, 50, 100, 100);
-// ctx.stroke();
-// ctx.fill();
+ctx.linewidth = 2;
+let x_coord = 0;
+let y_coord = 0;
 
-ctx.rect(50, 50, 100, 100);
-ctx.rect(150, 150, 100, 100);
-ctx.rect(250, 250, 100, 100);
-ctx.fill();
+function onClick(evenet) {
+    ctx.beginPath();
+    ctx.moveTo(x_coord,y_coord);
+    ctx.strokeStyle = colors[Math.floor(Math.random()*colors.length)];
+    ctx.lineTo(evenet.offsetX, evenet.offsetY,);
+    ctx.stroke();
+}
 
-ctx.beginPath();
-ctx.rect(350, 350, 100, 100);
-ctx.fillStyle = "red";
-ctx.fill();
+function cursor_move(event){
+    x_coord = event.offsetX;
+    y_coord = event.offsetY;
+    ctx.beginPath();
+    ctx.arc(x_coord, y_coord, 5, 0, 2*Math.PI);
+    ctx.fillStyle = colors[Math.floor(Math.random()*colors.length)];
+    ctx.fill();
+    console.log("d");
+    }
+
+canvas.addEventListener("mousemove", onClick);
+canvas.addEventListener("click", cursor_move);
